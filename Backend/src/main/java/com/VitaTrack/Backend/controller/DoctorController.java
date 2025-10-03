@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/doctor")
-public class DoctorController {
+public class   DoctorController {
     @Autowired
     private DoctorRepository doctorRepository;
     @Autowired
