@@ -1,0 +1,51 @@
+{
+  "info": {
+    "name": "MicroHealth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "token", "value": "" },
+    { "key": "patientId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Patient Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"alice@example.com\",\n  \"name\": \"Alice\",\n  \"password\": \"secret123\"\n}\n" },
+        "url": { "raw": "{{baseUrl}}/patient/register", "host": ["{{baseUrl}}"], "path": ["patient","register"] }
+      }
+    },
+    {
+      "name": "Auth Login",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{ \"email\": \"alice@example.com\", \"password\": \"secret123\" }" },
+        "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth","login"] }
+      }
+    },
+    {
+      "name": "Upload HealthRecord",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "body": { "mode": "raw", "raw": "{ \"patientId\": {{patientId}}, \"heartRate\": 78, \"oxygen\": 97.0 }" },
+        "url": { "raw": "{{baseUrl}}/patient/uploadRecord", "host": ["{{baseUrl}}"], "path": ["patient","uploadRecord"] }
+      }
+    },
+    {
+      "name": "WebSocket Connect (example)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "ws://localhost:8080/ws-alerts?token={{token}}", "host": ["ws://localhost:8080/ws-alerts"], "query": [{ "key": "token", "value": "{{token}}" }] }
+      }
+    }
+  ]
+}
